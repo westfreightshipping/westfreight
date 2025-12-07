@@ -1,6 +1,10 @@
 [build]
-  command = "npm ci && npm run build"
+  command = "rm -f bun.lockb && npm ci && npm run build"
   publish = "dist"
+
+# Disable automatic dependency installation
+[build.processing]
+  skip_processing = false
 
 [[redirects]]
   from = "/*"
@@ -10,9 +14,7 @@
 [build.environment]
   NODE_VERSION = "18"
   NPM_FLAGS = "--legacy-peer-deps"
-  # Disable bun auto-detection
+  # Force npm usage and disable bun
   NETLIFY_USE_NPM = "true"
-
-[build.processing]
-  skip_processing = false
+  NETLIFY_USE_BUN = "false"
 
