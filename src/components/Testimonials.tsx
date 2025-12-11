@@ -43,7 +43,7 @@ const Testimonials = () => {
   const decorY = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
   return (
-    <section ref={containerRef} id="testimonials" className="py-24 bg-gradient-to-b from-background to-muted relative overflow-hidden">
+    <section ref={containerRef} id="testimonials" className="pt-8 pb-12 md:pt-8 md:pb-16 bg-white relative overflow-hidden">
       {/* Parallax background decoration */}
       <motion.div style={{ y: decorY }} className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
@@ -86,14 +86,14 @@ const Testimonials = () => {
                 stiffness: 100
               }}
               whileHover={{ y: -10, scale: 1.02, transition: { duration: 0.3 } }}
-              className="bg-card rounded-2xl p-6 shadow-card border border-border/50 relative group"
+              className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl border-l-4 border-accent relative group transition-all"
             >
               {/* Quote icon */}
               <motion.div 
-                className="absolute -top-4 right-6 w-12 h-12 bg-gradient-to-br from-accent to-orange rounded-xl flex items-center justify-center shadow-lg"
+                className="absolute -top-4 right-6 w-12 h-12 bg-accent rounded-xl flex items-center justify-center shadow-lg"
                 whileHover={{ rotate: 15, scale: 1.1 }}
               >
-                <Quote className="w-6 h-6 text-accent-foreground" />
+                <Quote className="w-6 h-6 text-white" />
               </motion.div>
               
               {/* Rating */}
@@ -124,7 +124,6 @@ const Testimonials = () => {
                 <div>
                   <h4 className="font-bold text-foreground">{testimonial.name}</h4>
                   <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                  <p className="text-xs text-accent font-medium">{testimonial.company}</p>
                 </div>
               </div>
             </motion.div>

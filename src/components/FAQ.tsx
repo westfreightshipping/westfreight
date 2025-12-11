@@ -1,10 +1,6 @@
 import { motion } from "framer-motion";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { useState } from "react";
+import { Plus, Minus } from "lucide-react";
 
 const faqs = [
   {
@@ -44,10 +40,55 @@ const faqs = [
   },
 ];
 
+const FAQItem = ({ faq, index }: { faq: typeof faqs[0]; index: number }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="border-b border-border last:border-b-0 py-2"
+    >
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full py-4 px-4 flex items-start justify-between gap-4 text-left group transition-all hover:bg-accent/5 rounded-lg"
+      >
+        <span className="text-base md:text-lg font-semibold text-foreground pr-8 group-hover:text-accent transition-colors">
+          {faq.question}
+        </span>
+        
+        <motion.div
+          animate={{ rotate: isOpen ? 45 : 0 }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          className="flex-shrink-0 mt-1 w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-colors"
+        >
+          <Plus className={`w-4 h-4 transition-colors ${isOpen ? 'text-accent' : 'text-muted-foreground group-hover:text-white'}`} strokeWidth={2.5} />
+        </motion.div>
+      </button>
+
+      <motion.div
+        initial={false}
+        animate={{
+          height: isOpen ? "auto" : 0,
+          opacity: isOpen ? 1 : 0,
+        }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className="overflow-hidden"
+      >
+        <p className="text-muted-foreground leading-relaxed pb-4 pt-2 px-4 text-sm md:text-base">
+          {faq.answer}
+        </p>
+      </motion.div>
+    </motion.div>
+  );
+};
+
 const FAQ = () => {
   return (
-    <section id="faq" className="py-20 bg-background">
-      <div className="container mx-auto px-4">
+    <section id="faq" className="pt-8 pb-12 md:pt-8 md:pb-16 bg-white">
+      <div className="container mx-auto px-4 max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -55,47 +96,37 @@ const FAQ = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <span className="text-accent font-semibold uppercase tracking-wider text-sm">
-            FAQ
-          </span>
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mt-2 mb-4 text-balance">
+          <motion.span 
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="inline-block text-accent font-semibold text-sm tracking-wider uppercase mb-3"
+          >
+            Questions & Answers
+          </motion.span>
+          
+          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
             Frequently Asked Questions
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Find answers to common questions about our freight and logistics services.
+          
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Everything you need to know about our freight and logistics services
           </p>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="max-w-3xl mx-auto"
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="bg-white rounded-2xl border border-border shadow-lg overflow-hidden"
         >
-          <Accordion type="single" collapsible className="space-y-4">
+          <div className="p-4">
             {faqs.map((faq, index) => (
-              <motion.div
-                key={faq.question}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.08 }}
-              >
-                <AccordionItem
-                  value={`item-${index}`}
-                  className="bg-card rounded-xl border border-border px-6 shadow-card hover:border-accent/30 transition-colors duration-300"
-                >
-                  <AccordionTrigger className="text-left font-semibold text-foreground hover:text-accent transition-colors py-5">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground pb-5 leading-relaxed">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              </motion.div>
+              <FAQItem key={index} faq={faq} index={index} />
             ))}
-          </Accordion>
+          </div>
         </motion.div>
       </div>
     </section>

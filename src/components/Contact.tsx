@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
-import { MapPin, Phone, Mail, Clock, Send, CheckCircle } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Send, CheckCircle, FileText } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import QuoteForm from "./QuoteForm";
 
 const contactInfo = [
   {
@@ -34,6 +35,7 @@ const contactInfo = [
 const Contact = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isQuoteFormOpen, setIsQuoteFormOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -130,12 +132,31 @@ const Contact = () => {
               ))}
             </div>
 
-            {/* Map embed placeholder */}
+            {/* Quick Quote Button */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
+              className="mt-6"
+            >
+              <motion.button
+                onClick={() => setIsQuoteFormOpen(true)}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full flex items-center justify-center gap-2 bg-accent hover:bg-orange-hover text-white py-4 px-6 rounded-full font-semibold text-base shadow-lg transition-all duration-300"
+              >
+                <FileText className="w-5 h-5" />
+                <span>Get Quick Quote</span>
+              </motion.button>
+            </motion.div>
+
+            {/* Map embed placeholder */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.5 }}
               className="mt-6 rounded-xl overflow-hidden shadow-card border border-border/50"
             >
               <iframe
@@ -234,6 +255,9 @@ const Contact = () => {
           </motion.div>
         </div>
       </div>
+
+      {/* Quote Form Modal */}
+      <QuoteForm isOpen={isQuoteFormOpen} onClose={() => setIsQuoteFormOpen(false)} />
     </section>
   );
 };

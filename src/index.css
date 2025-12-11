@@ -1,8 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 @layer base {
   :root {
@@ -44,9 +44,18 @@
     --sky: 200 80% 94%;
     --sky-dark: 200 60% 85%;
     
+    /* LOGICO-style colors */
+    --header-dark: 220 15% 20%;
+    --header-dark-bg: 220 15% 20% / 0.95;
+    --header-text: 0 0% 100%;
+    --header-text-muted: 0 0% 80%;
+    --red-accent: 0 84% 60%;
+    --red-accent-hover: 0 84% 55%;
+    
     /* Gradients */
     --gradient-hero: linear-gradient(135deg, hsl(215 50% 18% / 0.85), hsl(215 40% 25% / 0.7));
     --gradient-cta: linear-gradient(135deg, hsl(4 85% 50%), hsl(25 95% 55%));
+    --gradient-hero-dark: linear-gradient(180deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
     
     /* Shadows */
     --shadow-card: 0 10px 40px -10px hsl(215 50% 18% / 0.15);

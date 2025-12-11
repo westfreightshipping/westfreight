@@ -75,6 +75,16 @@ export default {
           DEFAULT: "hsl(var(--sky))",
           dark: "hsl(var(--sky-dark))",
         },
+        "header-dark": {
+          DEFAULT: "hsl(var(--header-dark))",
+          bg: "hsl(var(--header-dark-bg))",
+        },
+        "header-text": "hsl(var(--header-text))",
+        "header-text-muted": "hsl(var(--header-text-muted))",
+        "red-accent": {
+          DEFAULT: "hsl(var(--red-accent))",
+          hover: "hsl(var(--red-accent-hover))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
