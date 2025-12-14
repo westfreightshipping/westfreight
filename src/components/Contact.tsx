@@ -100,17 +100,16 @@ const Contact = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
-                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
                   className="bg-card p-6 rounded-xl shadow-card border border-border/50 group"
                 >
                   {info.link ? (
                     <a href={info.link} target={info.link.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
-                      <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors">
+                      <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4 transition-colors">
                         <info.icon className="w-6 h-6 text-accent" />
                       </div>
                       <h3 className="font-bold text-foreground mb-2">{info.title}</h3>
                       {info.details.map((detail) => (
-                        <p key={detail} className="text-muted-foreground text-sm group-hover:text-foreground transition-colors">
+                        <p key={detail} className="text-muted-foreground text-sm transition-colors">
                           {detail}
                         </p>
                       ))}
@@ -142,9 +141,8 @@ const Contact = () => {
             >
               <motion.button
                 onClick={() => setIsQuoteFormOpen(true)}
-                whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full flex items-center justify-center gap-2 bg-accent hover:bg-orange-hover text-white py-4 px-6 rounded-full font-semibold text-base shadow-lg transition-all duration-300"
+                className="w-full flex items-center justify-center gap-2 bg-accent text-white py-4 px-6 rounded-full font-semibold text-base shadow-lg transition-all duration-300"
               >
                 <FileText className="w-5 h-5" />
                 <span>Get Quick Quote</span>
@@ -168,7 +166,7 @@ const Contact = () => {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 title="West Freight Shipping Location - Al Quasis Dubai"
-                className="grayscale hover:grayscale-0 transition-all duration-500"
+                className="grayscale transition-all duration-500"
               />
             </motion.div>
           </motion.div>
@@ -241,7 +239,7 @@ const Contact = () => {
                   </>
                 ) : (
                   <>
-                    <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    <Send className="w-5 h-5 transition-transform" />
                     Send Message
                   </>
                 )}

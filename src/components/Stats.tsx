@@ -32,7 +32,7 @@ const stats = [
     value: 3,
     suffix: "",
     label: "Partner Warehouses",
-    description: "Strategic storage facilities in Dubai and Abu Dhabi",
+    description: "Strategic storage facilities in Dubai ",
     bgImage: "https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&q=80&w=800",
   },
 ];
@@ -104,20 +104,12 @@ const Stats = () => {
                 type: "spring",
                 stiffness: 80
               }}
-              whileHover={{ 
-                y: -10,
-                rotateY: 5,
-                scale: 1.03,
-                transition: { duration: 0.3 }
-              }}
-              className="group relative h-[300px] md:h-[350px] rounded-3xl overflow-hidden cursor-pointer"
+              className="group relative h-[240px] md:h-[280px] rounded-3xl overflow-hidden cursor-pointer"
               style={{ perspective: "1000px" }}
             >
               {/* Background Image */}
               <motion.div 
                 className="absolute inset-0"
-                whileHover={{ scale: 1.15 }}
-                transition={{ duration: 0.8 }}
               >
                 <img 
                   src={stat.bgImage} 
@@ -129,10 +121,6 @@ const Stats = () => {
               {/* Animated overlay gradient */}
               <motion.div 
                 className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/40"
-                whileHover={{ 
-                  background: "linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0.7), rgba(0,0,0,0.5))"
-                }}
-                transition={{ duration: 0.3 }}
               />
 
               {/* Floating particles effect on hover */}
@@ -159,7 +147,7 @@ const Stats = () => {
               ))}
 
               {/* Content */}
-              <div className="relative h-full flex flex-col justify-between p-6 md:p-8">
+              <div className="relative h-full flex flex-col justify-between p-4 md:p-6">
                 {/* Icon with continuous animation */}
                 <motion.div
                   animate={{ 
@@ -172,16 +160,15 @@ const Stats = () => {
                     ease: "easeInOut",
                     delay: index * 0.2
                   }}
-                  whileHover={{ scale: 1.3, rotate: 360 }}
-                  className="w-12 h-12 flex items-center justify-center"
+                  className="w-10 h-10 flex items-center justify-center"
                 >
-                  <stat.icon className="w-10 h-10 text-white/90 drop-shadow-lg" strokeWidth={1.5} />
+                  <stat.icon className="w-8 h-8 text-white/90 drop-shadow-lg" strokeWidth={1.5} />
                 </motion.div>
 
                 <div>
                   {/* Number with outline and pulse */}
                   <motion.div 
-                    className="text-5xl md:text-6xl font-bold mb-3 group-hover:text-accent"
+                    className="text-3xl md:text-4xl font-bold mb-2"
                     style={{
                       color: 'transparent',
                       WebkitTextStroke: '2px rgb(235, 231, 229)',
@@ -189,17 +176,13 @@ const Stats = () => {
                       filter: 'drop-shadow(0 0 10px rgba(255, 127, 41, 0.3))',
                       transition: 'all 0.3s ease'
                     }}
-                    whileHover={{ 
-                      scale: 1.1,
-                      filter: 'drop-shadow(0 0 20px rgba(255, 127, 41, 0.6))',
-                    }}
                   >
                     <CountUp end={stat.value} suffix={stat.suffix} inView={isInView} />
                   </motion.div>
                   
                   {/* Label with slide up animation */}
                   <motion.h3 
-                    className="text-white text-lg md:text-xl font-bold mb-2"
+                    className="text-white text-base md:text-lg font-bold mb-1.5"
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 + index * 0.1 }}
@@ -209,7 +192,7 @@ const Stats = () => {
                   
                   {/* Description */}
                   <motion.p 
-                    className="text-white/80 text-sm leading-relaxed"
+                    className="text-white/80 text-xs md:text-sm leading-relaxed"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ delay: 0.4 + index * 0.1 }}

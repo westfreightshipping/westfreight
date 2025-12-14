@@ -92,17 +92,13 @@ const WhyUs = () => {
                 type: "spring",
                 stiffness: 100
               }}
-              whileHover={{ y: -10, scale: 1.02 }}
               className="text-center group"
             >
               <motion.div 
                 className="w-24 h-24 bg-gradient-to-br from-accent to-orange rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg relative"
-                whileHover={{ rotateY: 15, rotateX: 10 }}
                 style={{ perspective: "1000px" }}
               >
                 <reason.icon className="w-12 h-12 text-accent-foreground" />
-                {/* Glow effect */}
-                <div className="absolute inset-0 rounded-2xl bg-accent/30 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </motion.div>
               <h3 className="text-xl font-bold mb-3">{reason.title}</h3>
               <p className="text-primary-foreground/70 leading-relaxed">

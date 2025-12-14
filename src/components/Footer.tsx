@@ -25,7 +25,7 @@ const Footer = () => {
               <img 
                 src={logo} 
                 alt="West Freight Shipping Dubai" 
-                className="h-16 md:h-20 w-auto object-contain"
+                className="h-12 md:h-20 w-auto object-contain"
                 style={{ 
                   filter: "brightness(0) invert(1)",
                   WebkitFilter: "brightness(0) invert(1)"
@@ -46,9 +46,8 @@ const Footer = () => {
                   key={social.label}
                   href={social.href}
                   aria-label={social.label}
-                  whileHover={{ scale: 1.1, y: -3 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-10 h-10 bg-primary-foreground/10 rounded-lg flex items-center justify-center hover:bg-accent transition-colors duration-300"
+                  className="w-10 h-10 bg-primary-foreground/10 rounded-lg flex items-center justify-center transition-colors duration-300"
                 >
                   <social.icon className="w-5 h-5" />
                 </motion.a>
@@ -79,8 +78,7 @@ const Footer = () => {
                 <li key={link.name}>
                   <motion.a
                     href={link.href}
-                    whileHover={{ x: 5 }}
-                    className="text-primary-foreground/70 hover:text-accent transition-colors inline-flex items-center gap-2"
+                    className="text-primary-foreground/70 transition-colors inline-flex items-center gap-2"
                   >
                     <span className="w-1.5 h-1.5 bg-accent/50 rounded-full" />
                     {link.name}
@@ -103,22 +101,20 @@ const Footer = () => {
             </h3>
             <ul className="space-y-3">
               {[
-                "Air Freight Dubai",
-                "Ocean Freight UAE",
-                "Road Freight",
-                "Warehousing Services",
+                "Air Freight",
+                "Ocean Freight",
+                "Road Transportation",
+                "Warehousing & Distribution",
                 "Customs Clearance",
                 "Supply Chain Solutions",
+                "Logistics Coordination",
+                "General Trading",
               ].map((service) => (
                 <li key={service}>
-                  <motion.a
-                    href="#services"
-                    whileHover={{ x: 5 }}
-                    className="text-primary-foreground/70 hover:text-accent transition-colors inline-flex items-center gap-2"
-                  >
+                  <div className="text-primary-foreground/70 inline-flex items-center gap-2">
                     <span className="w-1.5 h-1.5 bg-accent/50 rounded-full" />
                     {service}
-                  </motion.a>
+                  </div>
                 </li>
               ))}
             </ul>
@@ -144,7 +140,7 @@ const Footer = () => {
                   className="flex items-start gap-3 group"
                 >
                   <MapPin className="w-5 h-5 text-accent flex-shrink-0 mt-1" />
-                  <span className="text-primary-foreground/70 group-hover:text-primary-foreground transition-colors">
+                  <span className="text-primary-foreground/70 transition-colors">
                     Al Quasis 1, Dubai<br />
                     P.O Box 77660, UAE
                   </span>
@@ -156,7 +152,7 @@ const Footer = () => {
                   className="flex items-center gap-3 group"
                 >
                   <Phone className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="text-primary-foreground/70 group-hover:text-primary-foreground transition-colors">
+                  <span className="text-primary-foreground/70 transition-colors">
                     +971 4 123 4567
                   </span>
                 </a>
@@ -167,7 +163,7 @@ const Footer = () => {
                   className="flex items-center gap-3 group"
                 >
                   <Mail className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="text-primary-foreground/70 group-hover:text-primary-foreground transition-colors">
+                  <span className="text-primary-foreground/70 transition-colors">
                     info@westfreightshipping.com
                   </span>
                 </a>
@@ -195,9 +191,8 @@ const Footer = () => {
             </p>
             <motion.button
               onClick={scrollToTop}
-              whileHover={{ y: -3 }}
               whileTap={{ scale: 0.95 }}
-              className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center hover:bg-accent/90 transition-colors"
+              className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center transition-colors"
               aria-label="Scroll to top"
             >
               <ArrowUp className="w-5 h-5 text-accent-foreground" />

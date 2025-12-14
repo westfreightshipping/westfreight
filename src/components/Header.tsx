@@ -47,7 +47,6 @@ const Header = () => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
-              whileHover={{ scale: 1.02 }}
             >
               <img src={logo} alt="West Freight Shipping" className="h-12 md:h-14 lg:h-16" />
             </motion.a>
@@ -62,9 +61,8 @@ const Header = () => {
                   className={`px-4 py-2 text-sm font-medium transition-all duration-300 rounded-full
                     ${activeLink === link.href 
                       ? "text-accent bg-accent/10" 
-                      : "text-gray-700 hover:text-accent hover:bg-gray-100"
+                      : "text-gray-700"
                     }`}
-                  whileHover={{ y: -2 }}
                 >
                   {link.name}
                 </motion.a>
@@ -76,8 +74,7 @@ const Header = () => {
               {/* Phone number - Desktop */}
               <motion.a
                 href="tel:+97141234567"
-                className="hidden xl:flex items-center text-gray-700 hover:text-accent transition-colors"
-                whileHover={{ scale: 1.05 }}
+                className="hidden xl:flex items-center text-gray-700 transition-colors"
               >
                 <Phone className="w-4 h-4 mr-2" />
                 <span className="text-sm font-medium">+971 4 123 4567</span>
@@ -86,9 +83,8 @@ const Header = () => {
               {/* Get Quote Button - Desktop */}
               <motion.button
                 onClick={() => setIsQuoteFormOpen(true)}
-                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="hidden lg:flex items-center gap-2 bg-accent hover:bg-orange-hover text-white px-5 py-2.5 rounded-full font-semibold text-sm shadow-md transition-all duration-300"
+                className="hidden lg:flex items-center gap-2 bg-accent text-white px-5 py-2.5 rounded-full font-semibold text-sm shadow-md transition-all duration-300"
               >
                 <FileText className="w-4 h-4" />
                 <span>Get a Quote</span>
@@ -134,9 +130,8 @@ const Header = () => {
                 {/* Top icons */}
                 <div className="flex items-center justify-end gap-2 p-4 border-b border-gray-200 bg-white sticky top-0 z-10">
                   <motion.button
-                    whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
-                    className="p-2 text-gray-600 hover:text-gray-900"
+                    className="p-2 text-gray-600"
                     onClick={() => {
                       setIsOpen(false);
                       setIsQuoteFormOpen(true);
@@ -146,10 +141,9 @@ const Header = () => {
                     <FileText className="w-5 h-5" />
                   </motion.button>
                   <motion.button
-                    whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={() => setIsOpen(false)}
-                    className="p-2 text-gray-600 hover:text-gray-900"
+                    className="p-2 text-gray-600"
                     aria-label="Close"
                   >
                     <X className="w-5 h-5" />
@@ -186,7 +180,7 @@ const Header = () => {
                   <div>
                     <h3 className="font-bold text-gray-900 mb-3 text-sm">Phone</h3>
                     <div className="space-y-2">
-                      <a href="tel:+97141234567" className="block text-sm text-gray-600 hover:text-accent transition-colors">
+                      <a href="tel:+97141234567" className="block text-sm text-gray-600 transition-colors">
                         +971 4 123 4567
                       </a>
                     </div>
@@ -194,7 +188,7 @@ const Header = () => {
                   
                   <div>
                     <h3 className="font-bold text-gray-900 mb-3 text-sm">Email</h3>
-                    <a href="mailto:info@westfreightshipping.com" className="block text-sm text-gray-600 hover:text-accent transition-colors">
+                    <a href="mailto:info@westfreightshipping.com" className="block text-sm text-gray-600 transition-colors">
                       info@westfreightshipping.com
                     </a>
                   </div>
@@ -203,7 +197,7 @@ const Header = () => {
                 {/* Social Media Icons */}
                 <div className="px-6 py-4 border-t border-gray-200">
                   <div className="flex items-center gap-4">
-                    {[
+                      {[
                       { icon: Facebook, href: "#", label: "Facebook" },
                       { icon: Twitter, href: "#", label: "Twitter" },
                       { icon: Linkedin, href: "#", label: "LinkedIn" },
@@ -212,9 +206,8 @@ const Header = () => {
                       <motion.a
                         key={social.label}
                         href={social.href}
-                        whileHover={{ scale: 1.1, y: -2 }}
                         whileTap={{ scale: 0.9 }}
-                        className="text-gray-700 hover:text-accent transition-colors"
+                        className="text-gray-700 transition-colors"
                         aria-label={social.label}
                       >
                         <social.icon className="w-5 h-5" />
@@ -230,9 +223,8 @@ const Header = () => {
                       setIsOpen(false);
                       setIsQuoteFormOpen(true);
                     }}
-                    whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full flex items-center justify-center gap-2 bg-accent hover:bg-orange-hover text-white py-4 px-6 rounded-full font-semibold text-base shadow-lg transition-all duration-300"
+                    className="w-full flex items-center justify-center gap-2 bg-accent text-white py-4 px-6 rounded-full font-semibold text-base shadow-lg transition-all duration-300"
                   >
                     <FileText className="w-5 h-5" />
                     <span>Get a Quote</span>

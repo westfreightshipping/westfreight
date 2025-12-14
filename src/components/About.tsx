@@ -46,9 +46,8 @@ const About = () => {
 
             <motion.button
               onClick={() => setIsQuoteFormOpen(true)}
-              whileHover={{ scale: 1.05, gap: '1rem' }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-3 bg-accent hover:bg-orange-hover text-accent-foreground px-8 py-4 rounded-full font-semibold text-base shadow-lg transition-all duration-300 mt-8"
+              className="flex items-center gap-3 bg-accent text-accent-foreground px-8 py-4 rounded-full font-semibold text-base shadow-lg transition-all duration-300 mt-8"
             >
               <span>Get Quote</span>
               <ArrowRight className="w-5 h-5" />
@@ -70,13 +69,10 @@ const About = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                whileHover={{ y: -5, scale: 1.05 }}
-                className="bg-card border border-border rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 group"
+                className="bg-card border border-border rounded-2xl p-6 shadow-sm transition-all duration-300 group"
               >
                 <motion.div
-                  whileHover={{ rotate: 360, scale: 1.2 }}
-                  transition={{ duration: 0.5 }}
-                  className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors"
+                  className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center mb-4 transition-colors"
                 >
                   <CheckCircle className="w-6 h-6 text-accent" />
                 </motion.div>

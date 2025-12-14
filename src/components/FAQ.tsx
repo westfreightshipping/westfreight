@@ -53,18 +53,18 @@ const FAQItem = ({ faq, index }: { faq: typeof faqs[0]; index: number }) => {
     >
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full py-4 px-4 flex items-start justify-between gap-4 text-left group transition-all hover:bg-accent/5 rounded-lg"
+        className="w-full py-4 px-4 flex items-start justify-between gap-4 text-left group transition-all rounded-lg"
       >
-        <span className="text-base md:text-lg font-semibold text-foreground pr-8 group-hover:text-accent transition-colors">
+        <span className="text-base md:text-lg font-semibold text-foreground pr-8 transition-colors">
           {faq.question}
         </span>
         
         <motion.div
           animate={{ rotate: isOpen ? 45 : 0 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="flex-shrink-0 mt-1 w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-colors"
+          className="flex-shrink-0 mt-1 w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center transition-colors"
         >
-          <Plus className={`w-4 h-4 transition-colors ${isOpen ? 'text-accent' : 'text-muted-foreground group-hover:text-white'}`} strokeWidth={2.5} />
+          <Plus className={`w-4 h-4 transition-colors ${isOpen ? 'text-accent' : 'text-muted-foreground'}`} strokeWidth={2.5} />
         </motion.div>
       </button>
 

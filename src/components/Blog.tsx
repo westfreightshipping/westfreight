@@ -13,15 +13,15 @@ const featuredPosts = [
   },
   {
     id: 2,
-    title: "Logistic for different ways in USA",
-    description: "Comprehensive freight solutions across America with reliable delivery networks and real-time tracking",
+    title: "End-to-End Logistics Solutions",
+    description: "Customized to Your Business Needs and Delivered with Precision Across Every Route",
     bgImage: "https://images.unsplash.com/photo-1605745341112-85968b19335b?auto=format&fit=crop&q=80&w=1200", // Ship at sunset
     hasOverlay: true
   },
   {
     id: 3,
     title: "Offers for our the best customers around the world",
-    description: "Exclusive rates and premium services for our valued international shipping partners across 15+ countries",
+    description: "Exclusive rates and premium services for our valued international shipping partners across 85+ countries",
     bgImage: "https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?auto=format&fit=crop&q=80&w=1200", // Airplane
     hasOverlay: true
   }
@@ -112,7 +112,7 @@ const Blog = () => {
                 <img 
                   src={post.bgImage} 
                   alt={post.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-700"
                 />
               </div>
 
@@ -129,9 +129,9 @@ const Blog = () => {
                 </p>
 
                 {/* Discover Button */}
-                <button className="group/btn flex items-center gap-2 text-white font-medium text-base hover:gap-4 transition-all duration-300">
+                <button className="group/btn flex items-center gap-2 text-white font-medium text-base transition-all duration-300">
                   <span>Discover</span>
-                  <ArrowRight className="w-5 h-5 transition-transform group-hover/btn:translate-x-1" />
+                  <ArrowRight className="w-5 h-5 transition-transform" />
                 </button>
               </div>
             </motion.article>
@@ -165,7 +165,7 @@ const Blog = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 onClick={() => setSelectedId(post.id)}
-                className="bg-card rounded-xl overflow-hidden shadow-card border border-border hover:border-accent/30 transition-colors cursor-pointer group flex flex-col h-full"
+                className="bg-card rounded-xl overflow-hidden shadow-card border border-border transition-colors cursor-pointer group flex flex-col h-full"
               >
                 {/* Image Container */}
                 <div className="h-48 relative overflow-hidden">
@@ -173,7 +173,7 @@ const Blog = () => {
                     layoutId={`image-${post.id}`}
                     src={post.image}
                     alt={post.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-500"
                   />
                   <div className="absolute top-3 left-3">
                     <motion.span 
@@ -200,7 +200,7 @@ const Blog = () => {
 
                   <motion.h3 
                     layoutId={`title-${post.id}`}
-                    className="font-bold text-foreground mb-2 line-clamp-2 group-hover:text-accent transition-colors"
+                    className="font-bold text-foreground mb-2 line-clamp-2 transition-colors"
                   >
                     {post.title}
                   </motion.h3>
@@ -209,9 +209,9 @@ const Blog = () => {
                     {post.excerpt}
                   </p>
 
-                  <div className="flex items-center text-accent font-medium text-sm mt-auto group-hover:gap-2 transition-all">
+                  <div className="flex items-center text-accent font-medium text-sm mt-auto transition-all">
                     Read More
-                    <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-4 h-4 ml-1 transition-transform" />
                   </div>
                 </div>
               </motion.article>
@@ -243,7 +243,7 @@ const Blog = () => {
                 >
                   <button
                     onClick={(e) => { e.stopPropagation(); setSelectedId(null); }}
-                    className="absolute top-4 right-4 z-20 p-2 bg-black/20 hover:bg-black/40 text-white rounded-full transition-colors"
+                    className="absolute top-4 right-4 z-20 p-2 bg-black/20 text-white rounded-full transition-colors"
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -295,7 +295,7 @@ const Blog = () => {
                     
                     <button 
                       onClick={() => setSelectedId(null)}
-                      className="mt-8 px-6 py-2 bg-accent text-accent-foreground rounded-md font-medium hover:bg-accent/90 transition-colors w-fit"
+                      className="mt-8 px-6 py-2 bg-accent text-accent-foreground rounded-md font-medium transition-colors w-fit"
                     >
                       Close Article
                     </button>

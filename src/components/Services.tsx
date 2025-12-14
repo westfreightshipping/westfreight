@@ -6,40 +6,40 @@ import AnimatedBackground from "./AnimatedBackground";
 
 const services = [
   {
-    icon: Ship,
-    title: "Freight Services",
-    description: "Air, Ocean & Road freight solutions for all cargo types. Global network with real-time tracking.",
-    subServices: ["Air Freight", "Ocean Freight", "Road Freight"]
+    icon: Plane,
+    title: "Freight Coordination",
+    description: "Air, ocean, and road freight arrangements worldwide coordinated through accredited global carriers and partners.",
+    subServices: ["Air Freight Coordination", "Ocean Freight Coordination", "Road Freight Coordination"]
   },
   {
     icon: Warehouse,
-    title: "Storage & Distribution",
-    description: "Warehousing and end-to-end supply chain management. Strategic locations across UAE.",
-    subServices: ["Warehousing", "Supply Chain Management"]
-  },
-  {
-    icon: Package,
-    title: "Customs & Clearance",
-    description: "Expert customs brokerage and documentation services. Hassle-free import/export processing.",
-    subServices: ["Customs Clearance", "Documentation"]
-  },
-  {
-    icon: Container,
-    title: "Specialized Cargo",
-    description: "Project cargo, exhibition logistics, and oversized shipments. Expert handling for unique requirements.",
-    subServices: ["Project Cargo", "Exhibition Logistics", "Heavy Equipment"]
+    title: "Storage & Distribution Support",
+    description: "Reliable warehousing and distribution options across key UAE locations, ensuring smooth storage, handling, and movement of goods.",
+    subServices: ["Warehousing Solutions", "End to End Supply Chain Management"]
   },
   {
     icon: FileText,
-    title: "Trading Services",
-    description: "Complete trade management including compliance, documentation, and international trade facilitation.",
-    subServices: ["General Trading", "Trade Compliance"]
+    title: "Customs & Documentation",
+    description: "End-to-end documentation assistance with seamless customs processes that keep your shipments moving without delays or complications.",
+    subServices: ["Customs Processing Assistance", "Import/Export Documentation"]
   },
   {
     icon: Globe,
-    title: "Global Solutions",
-    description: "Comprehensive international logistics across 15+ countries. Trusted partnerships worldwide.",
-    subServices: ["International Shipping", "Cross-border Logistics"]
+    title: "Global Freight Solutions",
+    description: "Cross-border logistics covering multiple regions and trade lanes, enabling fast, efficient, and dependable cargo movement worldwide.",
+    subServices: ["International Freight Options", "Multi-Region Logistics Support"]
+  },
+  {
+    icon: Container,
+    title: "Container Handling Support",
+    description: "Smooth handling for containerized shipments, including stuffing, de-stuffing, loading, and operational supervision at key UAE facilities.",
+    subServices: ["Container Loading/Unloading Support", "Cargo Handling Oversight"]
+  },
+  {
+    icon: Package,
+    title: "General Trading",
+    description: "Comprehensive trading services facilitating international commerce with expertise in procurement, sourcing, and trade management across global markets.",
+    subServices: ["International Trading", "Procurement & Sourcing"]
   },
 ];
 
@@ -92,21 +92,16 @@ const Services = () => {
                 type: "spring",
                 stiffness: 100
               }}
-              whileHover={{ y: -5, scale: 1.02 }}
-              className="group bg-card rounded-xl p-6 shadow-card hover:shadow-lg transition-all duration-300 border border-border hover:border-accent/30 relative overflow-hidden flex flex-col"
+              className="group bg-card rounded-xl p-6 shadow-card transition-all duration-300 border border-border relative overflow-hidden flex flex-col"
             >
-              {/* Subtle accent background on hover */}
-              <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              
               <motion.div 
-                className="w-14 h-14 bg-gradient-to-br from-navy to-navy-light rounded-xl flex items-center justify-center mb-4 shadow-md relative group-hover:from-accent group-hover:to-orange transition-all duration-300"
-                whileHover={{ rotateY: 20, rotateX: 10 }}
+                className="w-14 h-14 bg-gradient-to-br from-navy to-navy-light rounded-xl flex items-center justify-center mb-4 shadow-md relative transition-all duration-300"
                 style={{ perspective: "1000px", transformStyle: "preserve-3d" }}
               >
                 <service.icon className="w-7 h-7 text-white transition-colors duration-300" style={{ transform: "translateZ(10px)" }} />
               </motion.div>
               
-              <h3 className="text-base md:text-lg font-bold text-foreground mb-2 relative z-10 group-hover:text-accent transition-colors duration-300">
+              <h3 className="text-base md:text-lg font-bold text-foreground mb-2 relative z-10 transition-colors duration-300">
                 {service.title}
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed mb-3 relative z-10">

@@ -85,13 +85,11 @@ const Testimonials = () => {
                 type: "spring",
                 stiffness: 100
               }}
-              whileHover={{ y: -10, scale: 1.02, transition: { duration: 0.3 } }}
-              className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl border-l-4 border-accent relative group transition-all"
+              className="bg-white rounded-2xl p-6 shadow-lg border-l-4 border-accent relative group transition-all"
             >
               {/* Quote icon */}
               <motion.div 
                 className="absolute -top-4 right-6 w-12 h-12 bg-accent rounded-xl flex items-center justify-center shadow-lg"
-                whileHover={{ rotate: 15, scale: 1.1 }}
               >
                 <Quote className="w-6 h-6 text-white" />
               </motion.div>

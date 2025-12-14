@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'sans-serif'],
-        heading: ['Space Grotesk', 'Inter', 'sans-serif'],
+        sans: ['Plus Jakarta Sans', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'sans-serif'],
+        heading: ['Poppins', 'Plus Jakarta Sans', 'sans-serif'],
       },
       fontSize: {
         'xs': ['0.75rem', { lineHeight: '1.5', letterSpacing: '-0.01em' }],

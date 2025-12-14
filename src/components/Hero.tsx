@@ -1,27 +1,70 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "./ui/button";
 import { ArrowRight, Play, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+const heroImages = [
+  "https://m.media-amazon.com/images/G/31/Amazon-Global-Selling-IN/Blog-banners/Blog_400_What_is_shipping_Know_its_types_and_process.jpeg",
+  "https://plus.unsplash.com/premium_photo-1661964050170-b9e54345217d?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8c2hpcHBpbmd8ZW58MHx8MHx8fDA%3D",
+  "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&q=80&w=3000",
+];
 
 const Hero = () => {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
+    }, 5000); // Change image every 5 seconds (slower)
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section
       id="home"
       className="relative min-h-screen flex items-center pt-24 md:pt-28"
     >
-      {/* Background image with parallax effect */}
-      <motion.div
-        initial={{ scale: 1.1 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: 'url(https://media.istockphoto.com/id/2157040201/photo/truck-carrying-forty-foot-container-leaving-port-terminal-with-ship-and-quay-crane-on-the.webp?a=1&b=1&s=612x612&w=0&k=20&c=LU5DThx8ejIzZCqMtvkX4Cr3_WZyHv4SCZ-L0WLwK3w=)' }}
-      >
-        {/* Dark overlay - LOGICO style */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/40" />
-      </motion.div>
+      {/* Background image slider with smooth crossfade effect */}
+      <div className="absolute inset-0 overflow-hidden bg-black">
+        {heroImages.map((image, index) => {
+          const isActive = index === currentImageIndex;
+          const isPrevious = index === (currentImageIndex - 1 + heroImages.length) % heroImages.length;
+          const shouldShow = isActive || isPrevious;
+          
+          if (!shouldShow) return null;
+          
+          return (
+            <motion.div
+              key={index}
+              initial={isActive ? { opacity: 0 } : { opacity: 1 }}
+              animate={{ 
+                opacity: isActive ? 1 : 0 
+              }}
+              transition={{ 
+                duration: 2.5, 
+                ease: "easeInOut" 
+              }}
+              className="absolute inset-0"
+            >
+              <img
+                src={image}
+                alt={`Hero background ${index + 1}`}
+                className="w-full h-full object-cover"
+                style={{ 
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  objectPosition: 'center'
+                }}
+              />
+              {/* Dark overlay - stronger to prevent white showing through */}
+              <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/50" />
+            </motion.div>
+          );
+        })}
+      </div>
 
       {/* Floating animated elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -97,11 +140,10 @@ const Hero = () => {
             >
               <motion.button
                 onClick={() => setIsVideoOpen(true)}
-                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="relative group"
               >
-                <div className="flex items-center gap-3 bg-black hover:bg-gray-900 text-white px-8 py-4 rounded-full shadow-xl transition-all duration-300">
+                <div className="flex items-center gap-3 bg-black text-white px-8 py-4 rounded-full shadow-xl transition-all duration-300">
                   <div className="relative flex items-center justify-center">
                     <motion.div
                       animate={{
@@ -148,7 +190,7 @@ const Hero = () => {
             >
               <button
                 onClick={() => setIsVideoOpen(false)}
-                className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 flex items-center justify-center transition-colors"
+                className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center transition-colors"
               >
                 <X className="w-6 h-6 text-white" />
               </button>

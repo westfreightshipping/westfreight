@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Target, Network, Award, Shield, Headphones } from "lucide-react";
+import { Target, Network, Award, Shield, Headphones, Zap, DollarSign, Users } from "lucide-react";
 
 const values = [
   {
@@ -26,6 +26,21 @@ const values = [
     icon: Headphones,
     title: "End-to-End Support",
     description: "From booking to documentation, clearance, and door delivery, we manage the entire process smoothly.",
+  },
+  {
+    icon: Zap,
+    title: "Fast Quoting",
+    description: "Quick and accurate quotations with clear pricing — helping you make fast decisions and avoid delays.",
+  },
+  {
+    icon: DollarSign,
+    title: "Cost-Effective",
+    description: "Smart logistics planning that helps you reduce costs without compromising service quality or shipment timelines.",
+  },
+  {
+    icon: Users,
+    title: "Experienced Team",
+    description: "A skilled logistics team with hands-on expertise across freight, documentation, and global cargo handling.",
   },
 ];
 
@@ -64,7 +79,7 @@ const WhyChooseUs = () => {
           </p>
         </motion.div>
 
-        {/* Values Grid - First 3 items in one row, last 2 centered in second row */}
+        {/* Values Grid - First 3 items in one row, remaining items in rows below */}
         <div className="max-w-6xl mx-auto">
           {/* First row - 3 items */}
           <div className="grid md:grid-cols-3 gap-6 md:gap-8 lg:gap-10 mb-6 md:mb-8">
@@ -75,15 +90,12 @@ const WhyChooseUs = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.15 }}
-              whileHover={{ y: -10 }}
               className="group relative"
             >
               {/* Card */}
-              <div className="bg-card border border-border rounded-2xl p-5 md:p-6 shadow-sm hover:shadow-lg transition-all duration-300 h-full">
+              <div className="bg-card border border-border rounded-2xl p-5 md:p-6 shadow-sm transition-all duration-300 h-full">
                 {/* Icon with animated background */}
                 <motion.div
-                  whileHover={{ scale: 1.1, rotate: 360 }}
-                  transition={{ duration: 0.6 }}
                   className="relative w-12 h-12 mb-4"
                 >
                   {/* Pulsing background */}
@@ -100,7 +112,7 @@ const WhyChooseUs = () => {
                     }}
                     className="absolute inset-0 bg-accent rounded-full"
                   />
-                  <div className="relative w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                  <div className="relative w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center transition-colors">
                     <value.icon className="w-6 h-6 text-accent" strokeWidth={1.5} />
                   </div>
                 </motion.div>
@@ -119,25 +131,22 @@ const WhyChooseUs = () => {
           ))}
           </div>
 
-          {/* Second row - 2 items centered */}
-          <div className="grid md:grid-cols-2 gap-6 md:gap-8 lg:gap-10 max-w-4xl mx-auto">
-          {values.slice(3).map((value, index) => (
+          {/* Second row - 3 items */}
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8 lg:gap-10 mb-6 md:mb-8">
+          {values.slice(3, 6).map((value, index) => (
             <motion.div
               key={value.title}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: (index + 3) * 0.15 }}
-              whileHover={{ y: -10 }}
               className="group relative"
             >
               {/* Card */}
-              <div className="bg-card border border-border rounded-3xl p-6 md:p-8 shadow-sm hover:shadow-xl transition-all duration-500 h-full">
+              <div className="bg-card border border-border rounded-2xl p-5 md:p-6 shadow-sm transition-all duration-300 h-full">
                 {/* Icon with animated background */}
                 <motion.div
-                  whileHover={{ scale: 1.1, rotate: 360 }}
-                  transition={{ duration: 0.6 }}
-                  className="relative w-16 h-16 mb-6"
+                  className="relative w-12 h-12 mb-4"
                 >
                   {/* Pulsing background */}
                   <motion.div
@@ -153,29 +162,70 @@ const WhyChooseUs = () => {
                     }}
                     className="absolute inset-0 bg-accent rounded-full"
                   />
-                  <div className="relative w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center group-hover:bg-accent/20 transition-colors">
-                    <value.icon className="w-8 h-8 text-accent" strokeWidth={1.5} />
+                  <div className="relative w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center transition-colors">
+                    <value.icon className="w-6 h-6 text-accent" strokeWidth={1.5} />
                   </div>
                 </motion.div>
 
                 {/* Title */}
-                <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+                <h3 className="text-lg md:text-xl font-bold text-foreground mb-3">
                   {value.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="text-sm text-muted-foreground leading-relaxed">
                   {value.description}
                 </p>
+              </div>
+            </motion.div>
+          ))}
+          </div>
 
-                {/* Decorative accent line */}
+          {/* Third row - 2 items centered */}
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8 lg:gap-10 max-w-4xl mx-auto">
+          {values.slice(6).map((value, index) => (
+            <motion.div
+              key={value.title}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: (index + 6) * 0.15 }}
+              className="group relative"
+            >
+              {/* Card */}
+              <div className="bg-card border border-border rounded-2xl p-5 md:p-6 shadow-sm transition-all duration-300 h-full">
+                {/* Icon with animated background */}
                 <motion.div
-                  initial={{ width: 0 }}
-                  whileInView={{ width: "3rem" }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: (index + 3) * 0.15 + 0.3 }}
-                  className="h-1 bg-accent rounded-full mt-6"
-                />
+                  className="relative w-12 h-12 mb-4"
+                >
+                  {/* Pulsing background */}
+                  <motion.div
+                    animate={{
+                      scale: [1, 1.2, 1],
+                      opacity: [0.2, 0, 0.2],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: (index + 6) * 0.3,
+                    }}
+                    className="absolute inset-0 bg-accent rounded-full"
+                  />
+                  <div className="relative w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center transition-colors">
+                    <value.icon className="w-6 h-6 text-accent" strokeWidth={1.5} />
+                  </div>
+                </motion.div>
+
+                {/* Title */}
+                <h3 className="text-lg md:text-xl font-bold text-foreground mb-3">
+                  {value.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {value.description}
+                </p>
               </div>
             </motion.div>
           ))}
