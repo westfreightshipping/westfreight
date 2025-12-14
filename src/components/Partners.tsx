@@ -86,7 +86,8 @@ const PartnerLogo = ({ partner, size = "medium" }: { partner: typeof partners[0]
 
 const Partners = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const sliderRef = useRef<HTMLDivElement>(null);
+  const mobileSliderRef = useRef<HTMLDivElement>(null);
+  const desktopSliderRef = useRef<HTMLDivElement>(null);
   const [sliderKey, setSliderKey] = useState(0);
   
   const { scrollYProgress } = useScroll({
@@ -99,23 +100,20 @@ const Partners = () => {
   // Duplicate partners array once for seamless infinite loop
   const duplicatedPartners = [...partners, ...partners];
 
-  useEffect(() => {
-    if (!sliderRef.current) return;
-
-    const slider = sliderRef.current;
-    const cardWidth = 200; // w-[200px]
-    const gap = 32; // gap-8 = 2rem = 32px
-    const cardWithGap = cardWidth + gap;
-    const singleSetWidth = partners.length * cardWithGap;
-    
+  // Animation function for a slider
+  const setupSlider = (slider: HTMLDivElement, isMobile: boolean) => {
     let animationId: number;
     let currentX = 0;
-    const speed = 0.5; // pixels per frame (adjust for speed)
+    const speed = 0.5; // pixels per frame
 
     const animate = () => {
+      const cardWidth = isMobile ? 160 : 200;
+      const gap = isMobile ? 16 : 32;
+      const cardWithGap = cardWidth + gap;
+      const singleSetWidth = partners.length * cardWithGap;
+      
       currentX -= speed;
       
-      // Reset position when we've scrolled one full set
       if (Math.abs(currentX) >= singleSetWidth) {
         currentX = 0;
       }
@@ -125,11 +123,26 @@ const Partners = () => {
     };
 
     animationId = requestAnimationFrame(animate);
-
     return () => {
       if (animationId) {
         cancelAnimationFrame(animationId);
       }
+    };
+  };
+
+  useEffect(() => {
+    const cleanupFunctions: (() => void)[] = [];
+
+    if (mobileSliderRef.current) {
+      cleanupFunctions.push(setupSlider(mobileSliderRef.current, true));
+    }
+
+    if (desktopSliderRef.current) {
+      cleanupFunctions.push(setupSlider(desktopSliderRef.current, false));
+    }
+
+    return () => {
+      cleanupFunctions.forEach(cleanup => cleanup());
     };
   }, [sliderKey]);
 
@@ -163,23 +176,33 @@ const Partners = () => {
           </p>
         </motion.div>
 
-        {/* Mobile: Grid view */}
-        <div className="grid grid-cols-2 gap-4 md:hidden px-2">
-          {partners.map((partner, index) => (
-            <motion.div
-              key={partner.name}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 flex flex-col items-center justify-center gap-4 min-h-[140px] transition-all duration-300"
-            >
-              <PartnerLogo partner={partner} size="medium" />
-              <p className="text-sm font-semibold text-foreground text-center leading-tight">
-                {partner.name}
-              </p>
-            </motion.div>
-          ))}
+        {/* Mobile: Continuous horizontal slider (same as desktop) */}
+        <div className="md:hidden relative overflow-hidden">
+          {/* Mask fading edges */}
+          <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+
+          <div
+            ref={mobileSliderRef}
+            className="flex gap-4 flex-nowrap"
+            style={{ willChange: 'transform' }}
+          >
+            {duplicatedPartners.map((partner, index) => (
+              <motion.div
+                key={`${partner.name}-${index}`}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.05 }}
+                className="bg-white rounded-xl p-4 shadow-sm border border-gray-200 transition-all duration-300 w-[160px] flex-shrink-0 flex flex-col items-center justify-center gap-3"
+              >
+                <PartnerLogo partner={partner} size="medium" />
+                <p className="text-xs font-semibold text-foreground text-center leading-tight">
+                  {partner.name}
+                </p>
+              </motion.div>
+            ))}
+          </div>
         </div>
 
         {/* Desktop: Infinite horizontal slider */}
@@ -189,7 +212,7 @@ const Partners = () => {
           <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
 
           <div
-            ref={sliderRef}
+            ref={desktopSliderRef}
             className="flex gap-8 flex-nowrap"
             style={{ willChange: 'transform' }}
           >

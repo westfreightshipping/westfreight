@@ -6,6 +6,26 @@
 [build.processing]
   skip_processing = false
 
+# Headers for XML files
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Content-Type = "application/xml; charset=utf-8"
+    X-Content-Type-Options = "nosniff"
+
+# Exclude sitemap and robots from SPA routing
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "/sitemap.xml"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/robots.txt"
+  to = "/robots.txt"
+  status = 200
+  force = true
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
