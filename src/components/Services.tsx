@@ -81,22 +81,28 @@ const Services = () => {
         </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
-          {services.map((service, index) => (
-            <motion.div
-              key={service.title}
-              initial={{ opacity: 0, y: 70, rotateX: -10, scale: 0.9 }}
-              whileInView={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ 
-                duration: 0.7, 
-                delay: index * 0.08,
-                type: "spring",
-                stiffness: 120,
-                damping: 12
-              }}
-              className="group bg-card rounded-xl p-6 shadow-card transition-all duration-300 border border-border relative overflow-hidden flex flex-col"
-              style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
-            >
+          {services.map((service, index) => {
+            // Alternate directions for mobile: even from left, odd from right
+            const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
+            const isEven = index % 2 === 0;
+            const mobileX = isMobile ? (isEven ? -80 : 80) : 0;
+            
+            return (
+              <motion.div
+                key={service.title}
+                initial={{ opacity: 0, x: mobileX, y: isMobile ? 30 : 70, rotateX: -10, scale: 0.9 }}
+                whileInView={{ opacity: 1, x: 0, y: 0, rotateX: 0, scale: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ 
+                  duration: 0.7, 
+                  delay: index * 0.08,
+                  type: "spring",
+                  stiffness: 120,
+                  damping: 12
+                }}
+                className="group bg-card rounded-xl p-6 shadow-card transition-all duration-300 border border-border relative overflow-hidden flex flex-col"
+                style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
+              >
               <motion.div 
                 className="w-14 h-14 bg-gradient-to-br from-navy to-navy-light rounded-xl flex items-center justify-center mb-4 shadow-md relative transition-all duration-300"
                 style={{ perspective: "1000px", transformStyle: "preserve-3d" }}
@@ -120,8 +126,9 @@ const Services = () => {
                   </li>
                 ))}
               </ul>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
 
         <motion.div

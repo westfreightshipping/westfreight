@@ -102,22 +102,27 @@ const WhyChooseUs = () => {
         <div className="max-w-6xl mx-auto">
           {/* First row - 3 items */}
           <div className="grid md:grid-cols-3 gap-6 md:gap-8 lg:gap-10 mb-6 md:mb-8">
-          {values.slice(0, 3).map((value, index) => (
-            <motion.div
-              key={value.title}
-              initial={{ opacity: 0, y: 60, rotateY: -15 }}
-              whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ 
-                duration: 0.7, 
-                delay: index * 0.12,
-                type: "spring",
-                stiffness: 100,
-                damping: 15
-              }}
-              className="group relative"
-              style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
-            >
+          {values.slice(0, 3).map((value, index) => {
+            const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+            const directions = [-100, 0, 100]; // left, center, right
+            const mobileX = isMobile ? directions[index % 3] : 0;
+            
+            return (
+              <motion.div
+                key={value.title}
+                initial={{ opacity: 0, x: mobileX, y: isMobile ? 20 : 60, rotateY: -15 }}
+                whileInView={{ opacity: 1, x: 0, y: 0, rotateY: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ 
+                  duration: 0.7, 
+                  delay: index * 0.12,
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 15
+                }}
+                className="group relative"
+                style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
+              >
               {/* Card */}
               <div className="bg-card border border-border rounded-2xl p-5 md:p-6 shadow-sm transition-all duration-300 h-full">
                 {/* Icon with animated background */}
@@ -153,28 +158,34 @@ const WhyChooseUs = () => {
                   {value.description}
                 </p>
               </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
           </div>
 
           {/* Second row - 3 items */}
           <div className="grid md:grid-cols-3 gap-6 md:gap-8 lg:gap-10 mb-6 md:mb-8">
-          {values.slice(3, 6).map((value, index) => (
-            <motion.div
-              key={value.title}
-              initial={{ opacity: 0, y: 60, rotateY: -15 }}
-              whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ 
-                duration: 0.7, 
-                delay: (index + 3) * 0.12,
-                type: "spring",
-                stiffness: 100,
-                damping: 15
-              }}
-              className="group relative"
-              style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
-            >
+          {values.slice(3, 6).map((value, index) => {
+            const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+            const directions = [-100, 0, 100];
+            const mobileX = isMobile ? directions[index % 3] : 0;
+            
+            return (
+              <motion.div
+                key={value.title}
+                initial={{ opacity: 0, x: mobileX, y: isMobile ? 20 : 60, rotateY: -15 }}
+                whileInView={{ opacity: 1, x: 0, y: 0, rotateY: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ 
+                  duration: 0.7, 
+                  delay: (index + 3) * 0.12,
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 15
+                }}
+                className="group relative"
+                style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
+              >
               {/* Card */}
               <div className="bg-card border border-border rounded-2xl p-5 md:p-6 shadow-sm transition-all duration-300 h-full">
                 {/* Icon with animated background */}
@@ -210,28 +221,33 @@ const WhyChooseUs = () => {
                   {value.description}
                 </p>
               </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
           </div>
 
           {/* Third row - 2 items centered */}
           <div className="grid md:grid-cols-2 gap-6 md:gap-8 lg:gap-10 max-w-4xl mx-auto">
-          {values.slice(6).map((value, index) => (
-            <motion.div
-              key={value.title}
-              initial={{ opacity: 0, y: 60, rotateY: -15 }}
-              whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ 
-                duration: 0.7, 
-                delay: (index + 6) * 0.12,
-                type: "spring",
-                stiffness: 100,
-                damping: 15
-              }}
-              className="group relative"
-              style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
-            >
+          {values.slice(6).map((value, index) => {
+            const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+            const mobileX = isMobile ? (index === 0 ? -80 : 80) : 0;
+            
+            return (
+              <motion.div
+                key={value.title}
+                initial={{ opacity: 0, x: mobileX, y: isMobile ? 20 : 60, rotateY: -15 }}
+                whileInView={{ opacity: 1, x: 0, y: 0, rotateY: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ 
+                  duration: 0.7, 
+                  delay: (index + 6) * 0.12,
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 15
+                }}
+                className="group relative"
+                style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
+              >
               {/* Card */}
               <div className="bg-card border border-border rounded-2xl p-5 md:p-6 shadow-sm transition-all duration-300 h-full">
                 {/* Icon with animated background */}
@@ -267,8 +283,9 @@ const WhyChooseUs = () => {
                   {value.description}
                 </p>
               </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
           </div>
         </div>
       </div>

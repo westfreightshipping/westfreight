@@ -80,21 +80,26 @@ const About = () => {
             transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
             className="grid grid-cols-2 gap-4 lg:gap-6"
           >
-            {features.map((feature, index) => (
-              <motion.div
-                key={feature}
-                initial={{ opacity: 0, y: 30, rotateY: -15 }}
-                whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ 
-                  duration: 0.6, 
-                  delay: 0.3 + index * 0.1,
-                  type: "spring",
-                  stiffness: 100
-                }}
-                className="bg-card border border-border rounded-2xl p-6 shadow-sm transition-all duration-300 group"
-                style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
-              >
+            {features.map((feature, index) => {
+              const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+              const directions = [-80, 80, -80, 80]; // alternate left-right
+              const mobileX = isMobile ? directions[index % 4] : 0;
+              
+              return (
+                <motion.div
+                  key={feature}
+                  initial={{ opacity: 0, x: mobileX, y: isMobile ? 20 : 30, rotateY: -15 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0, rotateY: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ 
+                    duration: 0.6, 
+                    delay: 0.3 + index * 0.1,
+                    type: "spring",
+                    stiffness: 100
+                  }}
+                  className="bg-card border border-border rounded-2xl p-6 shadow-sm transition-all duration-300 group"
+                  style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
+                >
                 <motion.div
                   className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center mb-4 transition-colors"
                 >
@@ -103,8 +108,9 @@ const About = () => {
                 <p className="text-foreground font-semibold text-sm leading-tight">
                   {feature}
                 </p>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
           </motion.div>
         </div>
       </div>

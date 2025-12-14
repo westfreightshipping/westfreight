@@ -108,21 +108,26 @@ const Contact = () => {
             style={{ willChange: 'transform, opacity' }}
           >
             <div className="grid sm:grid-cols-2 gap-6">
-              {contactInfo.map((info, index) => (
-                <motion.div
-                  key={info.title}
-                  initial={{ opacity: 0, y: 30, rotateY: -10 }}
-                  whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
-                  viewport={{ once: true, margin: "-30px" }}
-                  transition={{ 
-                    duration: 0.6, 
-                    delay: index * 0.1,
-                    type: "spring",
-                    stiffness: 100
-                  }}
-                  className="bg-card p-6 rounded-xl shadow-card border border-border/50 group"
-                  style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
-                >
+              {contactInfo.map((info, index) => {
+                const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
+                const directions = [-80, 80, -80, 80]; // alternate left-right
+                const mobileX = isMobile ? directions[index % 4] : 0;
+                
+                return (
+                  <motion.div
+                    key={info.title}
+                    initial={{ opacity: 0, x: mobileX, y: isMobile ? 20 : 30, rotateY: -10 }}
+                    whileInView={{ opacity: 1, x: 0, y: 0, rotateY: 0 }}
+                    viewport={{ once: true, margin: "-30px" }}
+                    transition={{ 
+                      duration: 0.6, 
+                      delay: index * 0.1,
+                      type: "spring",
+                      stiffness: 100
+                    }}
+                    className="bg-card p-6 rounded-xl shadow-card border border-border/50 group"
+                    style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
+                  >
                   {info.link ? (
                     <a href={info.link} target={info.link.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
                       <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4 transition-colors">
@@ -148,8 +153,9 @@ const Contact = () => {
                       ))}
                     </>
                   )}
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+              })}
             </div>
 
             {/* Quick Quote Button */}

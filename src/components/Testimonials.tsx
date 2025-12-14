@@ -74,22 +74,27 @@ const Testimonials = () => {
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={testimonial.name}
-              initial={{ opacity: 0, y: 60, rotateX: -10, scale: 0.9 }}
-              whileInView={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ 
-                duration: 0.7, 
-                delay: index * 0.1,
-                type: "spring",
-                stiffness: 120,
-                damping: 12
-              }}
-              className="bg-white rounded-2xl p-6 shadow-lg border-l-4 border-accent relative group transition-all"
-              style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
-            >
+          {testimonials.map((testimonial, index) => {
+            const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+            const isEven = index % 2 === 0;
+            const mobileX = isMobile ? (isEven ? -100 : 100) : 0;
+            
+            return (
+              <motion.div
+                key={testimonial.name}
+                initial={{ opacity: 0, x: mobileX, y: isMobile ? 30 : 60, rotateX: -10, scale: 0.9 }}
+                whileInView={{ opacity: 1, x: 0, y: 0, rotateX: 0, scale: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ 
+                  duration: 0.7, 
+                  delay: index * 0.1,
+                  type: "spring",
+                  stiffness: 120,
+                  damping: 12
+                }}
+                className="bg-white rounded-2xl p-6 shadow-lg border-l-4 border-accent relative group transition-all"
+                style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
+              >
               {/* Quote icon */}
               <motion.div 
                 className="absolute -top-4 right-6 w-12 h-12 bg-accent rounded-xl flex items-center justify-center shadow-lg"
@@ -127,8 +132,9 @@ const Testimonials = () => {
                   <p className="text-sm text-muted-foreground">{testimonial.role}</p>
                 </div>
               </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

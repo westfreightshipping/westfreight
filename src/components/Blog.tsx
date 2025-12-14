@@ -116,20 +116,25 @@ const Blog = () => {
 
         {/* Featured Cards Grid */}
         <div className="grid md:grid-cols-3 gap-6 max-w-7xl mx-auto">
-          {featuredPosts.map((post, index) => (
-            <motion.article
-              key={post.id}
-              initial={{ opacity: 0, y: 60, rotateX: -10, scale: 0.95 }}
-              whileInView={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ 
-                duration: 0.7, 
-                delay: index * 0.12,
-                type: "spring",
-                stiffness: 100,
-                damping: 15
-              }}
-              style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
+          {featuredPosts.map((post, index) => {
+            const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+            const directions = [-100, 0, 100]; // left, center, right
+            const mobileX = isMobile ? directions[index % 3] : 0;
+            
+            return (
+              <motion.article
+                key={post.id}
+                initial={{ opacity: 0, x: mobileX, y: isMobile ? 30 : 60, rotateX: -10, scale: 0.95 }}
+                whileInView={{ opacity: 1, x: 0, y: 0, rotateX: 0, scale: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ 
+                  duration: 0.7, 
+                  delay: index * 0.12,
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 15
+                }}
+                style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
               className="group relative h-[400px] rounded-3xl overflow-hidden cursor-pointer"
             >
               {/* Background Image */}
@@ -237,11 +242,12 @@ const Blog = () => {
                   <div className="flex items-center text-accent font-medium text-sm mt-auto transition-all">
                     Read More
                     <ArrowRight className="w-4 h-4 ml-1 transition-transform" />
-                  </div>
                 </div>
+              </div>
               </motion.article>
-            ))}
-          </div>
+            );
+          })}
+        </div>
         </motion.div>
       </div>
 
