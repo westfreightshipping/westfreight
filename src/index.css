@@ -119,6 +119,13 @@
     letter-spacing: -0.011em;
   }
 
+  /* Performance optimizations for animations */
+  [data-framer-motion] {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Poppins', 'Plus Jakarta Sans', sans-serif;
     font-weight: 700;
@@ -190,5 +197,17 @@
   /* Professional spacing */
   .section-padding {
     @apply py-16 md:py-20 lg:py-24;
+  }
+
+  /* GPU acceleration for smooth animations */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+  }
+
+  /* Optimize parallax elements */
+  [style*="transform"] {
+    will-change: transform;
   }
 }

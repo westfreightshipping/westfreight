@@ -1,6 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Award, Shield, CheckCircle, Globe } from "lucide-react";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 // Partner companies organized by category
 const partnerCategories = [
@@ -87,23 +86,71 @@ const PartnerLogo = ({ partner, size = "medium" }: { partner: typeof partners[0]
 
 const Partners = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const [sliderKey, setSliderKey] = useState(0);
+  
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   });
 
-  // Smooth horizontal scroll effect
-  const x = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [30, -30]);
+  
+  // Duplicate partners array once for seamless infinite loop
+  const duplicatedPartners = [...partners, ...partners];
+
+  useEffect(() => {
+    if (!sliderRef.current) return;
+
+    const slider = sliderRef.current;
+    const cardWidth = 200; // w-[200px]
+    const gap = 32; // gap-8 = 2rem = 32px
+    const cardWithGap = cardWidth + gap;
+    const singleSetWidth = partners.length * cardWithGap;
+    
+    let animationId: number;
+    let currentX = 0;
+    const speed = 0.5; // pixels per frame (adjust for speed)
+
+    const animate = () => {
+      currentX -= speed;
+      
+      // Reset position when we've scrolled one full set
+      if (Math.abs(currentX) >= singleSetWidth) {
+        currentX = 0;
+      }
+      
+      slider.style.transform = `translateX(${currentX}px)`;
+      animationId = requestAnimationFrame(animate);
+    };
+
+    animationId = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+    };
+  }, [sliderKey]);
 
   return (
-    <section ref={containerRef} className="pt-8 pb-12 md:pt-8 md:pb-16 bg-white overflow-hidden">
-      <div className="container mx-auto px-4">
+    <section ref={containerRef} className="pt-8 pb-12 md:pt-8 md:pb-16 bg-white overflow-hidden relative">
+      {/* Parallax background */}
+      <motion.div 
+        style={{ y: parallaxY }}
+        className="absolute inset-0 opacity-5 pointer-events-none"
+      >
+        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-96 h-96 bg-accent rounded-full blur-3xl" />
+      </motion.div>
+
+      <div className="container mx-auto px-4 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 40, scale: 0.95 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-12 px-4"
+          style={{ willChange: 'transform, opacity' }}
         >
           <span className="text-accent font-semibold uppercase tracking-wider text-sm">
             Our Partners
@@ -116,62 +163,48 @@ const Partners = () => {
           </p>
         </motion.div>
 
-        {/* Partners organized by category */}
-        <div className="space-y-12">
-          {partnerCategories.map((category, categoryIndex) => (
+        {/* Mobile: Grid view */}
+        <div className="grid grid-cols-2 gap-4 md:hidden px-2">
+          {partners.map((partner, index) => (
             <motion.div
-              key={category.category}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              key={partner.name}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: categoryIndex * 0.2 }}
-              className="space-y-6"
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 flex flex-col items-center justify-center gap-4 min-h-[140px] transition-all duration-300"
             >
-              <h3 className="text-lg md:text-xl font-bold text-foreground text-center">
-                {category.category}
-              </h3>
-              
-              {/* Mobile: Grid view */}
-              <div className="grid grid-cols-2 gap-4 md:hidden">
-                {category.partners.map((partner, index) => (
-                  <motion.div
-                    key={partner.name}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: (categoryIndex * 0.1) + (index * 0.1) }}
-                    className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 flex flex-col items-center justify-center gap-4 min-h-[140px] transition-all duration-300"
-                  >
-                    <PartnerLogo partner={partner} size="medium" />
-                    <p className="text-sm font-semibold text-foreground text-center leading-tight">
-                      {partner.name}
-                    </p>
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* Desktop: Horizontal scroll */}
-              <div className="hidden md:block relative overflow-hidden">
-                <div className="flex gap-6 justify-center flex-wrap">
-                  {category.partners.map((partner, index) => (
-                    <motion.div
-                      key={partner.name}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: (categoryIndex * 0.1) + (index * 0.1) }}
-                      className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 transition-all duration-300 w-[200px] flex flex-col items-center justify-center gap-4 grayscale"
-                    >
-                      <PartnerLogo partner={partner} size="large" />
-                      <p className="text-sm font-semibold text-foreground text-center leading-tight">
-                        {partner.name}
-                      </p>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
+              <PartnerLogo partner={partner} size="medium" />
+              <p className="text-sm font-semibold text-foreground text-center leading-tight">
+                {partner.name}
+              </p>
             </motion.div>
           ))}
+        </div>
+
+        {/* Desktop: Infinite horizontal slider */}
+        <div className="hidden md:block relative overflow-hidden">
+          {/* Mask fading edges for better visual appeal */}
+          <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+
+          <div
+            ref={sliderRef}
+            className="flex gap-8 flex-nowrap"
+            style={{ willChange: 'transform' }}
+          >
+            {duplicatedPartners.map((partner, index) => (
+              <div
+                key={`${partner.name}-${index}`}
+                className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 transition-all duration-300 w-[200px] flex-shrink-0 flex flex-col items-center justify-center gap-4 grayscale"
+              >
+                <PartnerLogo partner={partner} size="large" />
+                <p className="text-sm font-semibold text-foreground text-center leading-tight">
+                  {partner.name}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
 
        

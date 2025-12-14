@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Target, Network, Award, Shield, Headphones, Zap, DollarSign, Users } from "lucide-react";
+import { useRef } from "react";
 
 const values = [
   {
@@ -45,22 +46,40 @@ const values = [
 ];
 
 const WhyChooseUs = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const parallaxY1 = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const parallaxY2 = useTransform(scrollYProgress, [0, 1], [0, 60]);
+
   return (
-    <section id="why-us" className="pt-8 pb-8 md:pt-8 md:pb-12 bg-white relative overflow-hidden">
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 opacity-5">
+    <section ref={containerRef} id="why-us" className="pt-8 pb-8 md:pt-8 md:pb-12 bg-white relative overflow-hidden">
+      {/* Background decorative elements with parallax */}
+      <motion.div 
+        style={{ y: parallaxY1 }}
+        className="absolute inset-0 opacity-5 pointer-events-none"
+      >
         <div className="absolute top-20 right-20 w-72 h-72 bg-accent rounded-full blur-3xl" />
+      </motion.div>
+      <motion.div 
+        style={{ y: parallaxY2 }}
+        className="absolute inset-0 opacity-5 pointer-events-none"
+      >
         <div className="absolute bottom-20 left-20 w-96 h-96 bg-accent rounded-full blur-3xl" />
-      </div>
+      </motion.div>
 
       <div className="container mx-auto px-4 max-w-7xl relative z-10">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 40, scale: 0.95 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-10 md:mb-12"
+          style={{ willChange: 'transform, opacity' }}
         >
           <motion.span 
             initial={{ opacity: 0, x: -20 }}
@@ -86,11 +105,18 @@ const WhyChooseUs = () => {
           {values.slice(0, 3).map((value, index) => (
             <motion.div
               key={value.title}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
+              initial={{ opacity: 0, y: 60, rotateY: -15 }}
+              whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ 
+                duration: 0.7, 
+                delay: index * 0.12,
+                type: "spring",
+                stiffness: 100,
+                damping: 15
+              }}
               className="group relative"
+              style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
             >
               {/* Card */}
               <div className="bg-card border border-border rounded-2xl p-5 md:p-6 shadow-sm transition-all duration-300 h-full">
@@ -136,11 +162,18 @@ const WhyChooseUs = () => {
           {values.slice(3, 6).map((value, index) => (
             <motion.div
               key={value.title}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: (index + 3) * 0.15 }}
+              initial={{ opacity: 0, y: 60, rotateY: -15 }}
+              whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ 
+                duration: 0.7, 
+                delay: (index + 3) * 0.12,
+                type: "spring",
+                stiffness: 100,
+                damping: 15
+              }}
               className="group relative"
+              style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
             >
               {/* Card */}
               <div className="bg-card border border-border rounded-2xl p-5 md:p-6 shadow-sm transition-all duration-300 h-full">
@@ -186,11 +219,18 @@ const WhyChooseUs = () => {
           {values.slice(6).map((value, index) => (
             <motion.div
               key={value.title}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: (index + 6) * 0.15 }}
+              initial={{ opacity: 0, y: 60, rotateY: -15 }}
+              whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ 
+                duration: 0.7, 
+                delay: (index + 6) * 0.12,
+                type: "spring",
+                stiffness: 100,
+                damping: 15
+              }}
               className="group relative"
+              style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
             >
               {/* Card */}
               <div className="bg-card border border-border rounded-2xl p-5 md:p-6 shadow-sm transition-all duration-300 h-full">

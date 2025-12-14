@@ -1,6 +1,6 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { Calendar, ArrowRight, Clock, X, User } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 // Featured blog posts with large card design
 const featuredPosts = [
@@ -77,16 +77,34 @@ const blogPosts = [
 
 const Blog = () => {
   const [selectedId, setSelectedId] = useState<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [50, -50]);
+
   return (
-    <section id="blog" className="py-16 md:py-24 bg-background relative">
-      <div className="container mx-auto px-4">
+    <section ref={containerRef} id="blog" className="py-16 md:py-24 bg-background relative overflow-hidden">
+      {/* Parallax background */}
+      <motion.div 
+        style={{ y: parallaxY }}
+        className="absolute inset-0 opacity-5 pointer-events-none"
+      >
+        <div className="absolute top-20 right-20 w-96 h-96 bg-accent rounded-full blur-3xl" />
+        <div className="absolute bottom-20 left-20 w-80 h-80 bg-navy rounded-full blur-3xl" />
+      </motion.div>
+
+      <div className="container mx-auto px-4 relative z-10">
         {/* Header Section */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 40, scale: 0.95 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-12"
+          style={{ willChange: 'transform, opacity' }}
         >
           <span className="text-accent font-semibold uppercase tracking-wider text-sm">
             News & Insights
@@ -101,10 +119,17 @@ const Blog = () => {
           {featuredPosts.map((post, index) => (
             <motion.article
               key={post.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
+              initial={{ opacity: 0, y: 60, rotateX: -10, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ 
+                duration: 0.7, 
+                delay: index * 0.12,
+                type: "spring",
+                stiffness: 100,
+                damping: 15
+              }}
+              style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
               className="group relative h-[400px] rounded-3xl overflow-hidden cursor-pointer"
             >
               {/* Background Image */}

@@ -1,6 +1,6 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, CheckCircle } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import QuoteForm from "./QuoteForm";
 
 const features = [
@@ -12,17 +12,35 @@ const features = [
 
 const About = () => {
   const [isQuoteFormOpen, setIsQuoteFormOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [50, -50]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.3, 1, 0.3]);
+
   return (
-    <section id="about" className="pt-8 pb-12 md:pt-8 md:pb-16 bg-background relative overflow-hidden">
+    <section ref={containerRef} id="about" className="pt-8 pb-12 md:pt-8 md:pb-16 bg-background relative overflow-hidden">
+      {/* Parallax background elements */}
+      <motion.div 
+        style={{ y: parallaxY, opacity }}
+        className="absolute inset-0 pointer-events-none"
+      >
+        <div className="absolute top-20 right-20 w-72 h-72 bg-accent/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 left-20 w-96 h-96 bg-navy/5 rounded-full blur-3xl" />
+      </motion.div>
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="grid lg:grid-cols-[1.2fr,1fr] gap-8 lg:gap-16 items-start">
           {/* Left - Content */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="space-y-6"
+            style={{ willChange: 'transform, opacity' }}
           >
             <motion.span
               initial={{ opacity: 0, x: -20 }}
@@ -65,11 +83,17 @@ const About = () => {
             {features.map((feature, index) => (
               <motion.div
                 key={feature}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+                initial={{ opacity: 0, y: 30, rotateY: -15 }}
+                whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ 
+                  duration: 0.6, 
+                  delay: 0.3 + index * 0.1,
+                  type: "spring",
+                  stiffness: 100
+                }}
                 className="bg-card border border-border rounded-2xl p-6 shadow-sm transition-all duration-300 group"
+                style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
               >
                 <motion.div
                   className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center mb-4 transition-colors"

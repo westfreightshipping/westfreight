@@ -55,11 +55,12 @@ const Testimonials = () => {
       
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 40, scale: 0.95 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-16"
+          style={{ willChange: 'transform, opacity' }}
         >
           <span className="text-accent font-semibold uppercase tracking-wider text-sm">
             Client Testimonials
@@ -76,16 +77,18 @@ const Testimonials = () => {
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.name}
-              initial={{ opacity: 0, y: 50, scale: 0.9 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true }}
+              initial={{ opacity: 0, y: 60, rotateX: -10, scale: 0.9 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-50px" }}
               transition={{ 
-                duration: 0.5, 
-                delay: index * 0.12,
+                duration: 0.7, 
+                delay: index * 0.1,
                 type: "spring",
-                stiffness: 100
+                stiffness: 120,
+                damping: 12
               }}
               className="bg-white rounded-2xl p-6 shadow-lg border-l-4 border-accent relative group transition-all"
+              style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
             >
               {/* Quote icon */}
               <motion.div 

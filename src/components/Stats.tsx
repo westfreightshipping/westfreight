@@ -1,4 +1,4 @@
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { Package, Globe2, Warehouse, TrendingUp } from "lucide-react";
 
@@ -66,23 +66,31 @@ const CountUp = ({ end, suffix, inView }: { end: number; suffix: string; inView:
 const Stats = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  const parallaxY1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const parallaxY2 = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
 
   return (
     <section ref={ref} className="py-16 md:py-20 bg-background relative overflow-hidden">
-      {/* Animated background gradient blobs */}
+      {/* Animated background gradient blobs with parallax */}
       <motion.div
+        style={{ y: parallaxY1, scale }}
         animate={{
           x: [0, 100, 0],
-          y: [0, -50, 0],
           scale: [1, 1.2, 1],
         }}
         transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
         className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl"
       />
       <motion.div
+        style={{ y: parallaxY2 }}
         animate={{
           x: [0, -80, 0],
-          y: [0, 60, 0],
           scale: [1, 1.3, 1],
         }}
         transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
@@ -95,17 +103,18 @@ const Stats = () => {
           {stats.map((stat, index) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, y: 50, rotateX: -15 }}
-              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              initial={{ opacity: 0, y: 80, rotateX: -20, scale: 0.9 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ 
-                duration: 0.7, 
-                delay: index * 0.15,
+                duration: 0.8, 
+                delay: index * 0.12,
                 type: "spring",
-                stiffness: 80
+                stiffness: 100,
+                damping: 15
               }}
               className="group relative h-[240px] md:h-[280px] rounded-3xl overflow-hidden cursor-pointer"
-              style={{ perspective: "1000px" }}
+              style={{ perspective: "1000px", willChange: 'transform, opacity' }}
             >
               {/* Background Image */}
               <motion.div 

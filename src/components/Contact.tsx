@@ -1,7 +1,7 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle, FileText } from "lucide-react";
 import { Button } from "./ui/button";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useToast } from "@/hooks/use-toast";
 import QuoteForm from "./QuoteForm";
 
@@ -34,6 +34,7 @@ const contactInfo = [
 
 const Contact = () => {
   const { toast } = useToast();
+  const containerRef = useRef<HTMLDivElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isQuoteFormOpen, setIsQuoteFormOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -43,6 +44,13 @@ const Contact = () => {
     requirements: "",
     message: "",
   });
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,18 +68,24 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="pt-12 pb-12 bg-gradient-to-b from-muted to-background relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-navy/5 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
+    <section ref={containerRef} id="contact" className="pt-12 pb-12 bg-gradient-to-b from-muted to-background relative overflow-hidden">
+      {/* Background decoration with parallax */}
+      <motion.div 
+        style={{ y: parallaxY }}
+        className="absolute inset-0 pointer-events-none"
+      >
+        <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-navy/5 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
+      </motion.div>
       
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 40, scale: 0.95 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-16"
+          style={{ willChange: 'transform, opacity' }}
         >
           <span className="text-accent font-semibold uppercase tracking-wider text-sm">
             Contact Us
@@ -87,20 +101,27 @@ const Contact = () => {
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact info */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            style={{ willChange: 'transform, opacity' }}
           >
             <div className="grid sm:grid-cols-2 gap-6">
               {contactInfo.map((info, index) => (
                 <motion.div
                   key={info.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  initial={{ opacity: 0, y: 30, rotateY: -10 }}
+                  whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
+                  viewport={{ once: true, margin: "-30px" }}
+                  transition={{ 
+                    duration: 0.6, 
+                    delay: index * 0.1,
+                    type: "spring",
+                    stiffness: 100
+                  }}
                   className="bg-card p-6 rounded-xl shadow-card border border-border/50 group"
+                  style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
                 >
                   {info.link ? (
                     <a href={info.link} target={info.link.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
@@ -173,10 +194,11 @@ const Contact = () => {
 
           {/* Contact form */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, x: 50, rotateY: 10 }}
+            whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
           >
             <form onSubmit={handleSubmit} className="bg-card p-8 rounded-xl shadow-card border border-border/50">
               <div className="grid sm:grid-cols-2 gap-4 mb-4">

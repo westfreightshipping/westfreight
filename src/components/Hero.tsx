@@ -1,7 +1,7 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { Button } from "./ui/button";
 import { ArrowRight, Play, X } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const heroImages = [
   "https://m.media-amazon.com/images/G/31/Amazon-Global-Selling-IN/Blog-banners/Blog_400_What_is_shipping_Know_its_types_and_process.jpeg",
@@ -12,6 +12,15 @@ const heroImages = [
 const Hero = () => {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -23,11 +32,15 @@ const Hero = () => {
 
   return (
     <section
+      ref={containerRef}
       id="home"
       className="relative min-h-screen flex items-center pt-24 md:pt-28"
     >
-      {/* Background image slider with smooth crossfade effect */}
-      <div className="absolute inset-0 overflow-hidden bg-black">
+      {/* Background image slider with smooth crossfade effect and parallax */}
+      <motion.div 
+        style={{ y: parallaxY }}
+        className="absolute inset-0 overflow-hidden bg-black"
+      >
         {heroImages.map((image, index) => {
           const isActive = index === currentImageIndex;
           const isPrevious = index === (currentImageIndex - 1 + heroImages.length) % heroImages.length;
@@ -64,7 +77,7 @@ const Hero = () => {
             </motion.div>
           );
         })}
-      </div>
+      </motion.div>
 
       {/* Floating animated elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -89,14 +102,18 @@ const Hero = () => {
         ))}
       </div>
 
-      <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10 py-20 md:py-32">
+      <motion.div 
+        style={{ opacity }}
+        className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10 py-20 md:py-32"
+      >
         {/* Centered content - LOGICO style */}
         <div className="max-w-5xl mx-auto text-center">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            initial={{ opacity: 0, y: 50, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="space-y-8"
+            style={{ willChange: 'transform, opacity' }}
           >
             <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight mb-6 md:mb-8">
               <motion.span
