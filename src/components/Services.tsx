@@ -9,7 +9,7 @@ const services = [
     icon: PackageCheck,
     title: "Freight Coordination",
     description: "Air, ocean, and road freight arrangements worldwide coordinated through accredited global carriers and partners.",
-    subServices: ["Air Freight Coordination", "Ocean Freight Coordination", "Road Freight Coordination"]
+    subServices: ["Air Freight", "Ocean Freight", "Road Freight"]
   },
   {
     icon: Warehouse,
