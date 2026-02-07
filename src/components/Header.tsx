@@ -48,7 +48,7 @@ const Header = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <img src={logo} alt="West Freight Shipping" className="h-12 md:h-14 lg:h-16" />
+              <img src={logo} alt="West Freight Shipping" className="h-14 md:h-16 lg:h-20" />
             </motion.a>
 
             {/* Centered Navigation - Desktop */}
