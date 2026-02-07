@@ -23,7 +23,7 @@ const Loader = ({ onComplete }: { onComplete: () => void }) => {
       initial={{ opacity: 1 }}
       animate={{ opacity: isVisible ? 1 : 0 }}
       transition={{ duration: 0.5 }}
-      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[hsl(220,15%,12%)]"
+      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white"
     >
       {/* Logo on top */}
       <div className="relative inline-block mb-8">
@@ -65,7 +65,7 @@ const Loader = ({ onComplete }: { onComplete: () => void }) => {
       </div>
       {/* Loading bar in brand green */}
       <motion.div
-        className="h-1 w-32 rounded-full bg-white/20 overflow-hidden"
+        className="h-1 w-32 rounded-full bg-gray-200 overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2 }}

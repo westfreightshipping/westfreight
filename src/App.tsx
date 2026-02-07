@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Loader from "./components/Loader";
 
+
 const queryClient = new QueryClient();
 
 const App = () => {

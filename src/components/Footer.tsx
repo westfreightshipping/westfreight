@@ -8,7 +8,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-navy text-primary-foreground relative">
+    <footer className="bg-slate-100 text-slate-800 relative">
       {/* Decorative top border */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent to-transparent" />
       
@@ -28,7 +28,7 @@ const Footer = () => {
                 className="h-20 md:h-28 w-auto object-contain"
               />
             </div>
-            <p className="text-primary-foreground/70 leading-relaxed mb-6">
+            <p className="text-slate-600 leading-relaxed mb-6">
               Your trusted logistics partner in Dubai. We provide innovative freight solutions for businesses of all sizes across the UAE and beyond.
             </p>
             <div className="flex gap-3">
@@ -43,7 +43,7 @@ const Footer = () => {
                   href={social.href}
                   aria-label={social.label}
                   whileTap={{ scale: 0.95 }}
-                  className="w-10 h-10 bg-primary-foreground/10 rounded-lg flex items-center justify-center transition-colors duration-300"
+                  className="w-10 h-10 bg-slate-200 text-slate-700 rounded-lg flex items-center justify-center transition-colors duration-300 hover:bg-accent hover:text-white"
                 >
                   <social.icon className="w-5 h-5" />
                 </motion.a>
@@ -74,7 +74,7 @@ const Footer = () => {
                 <li key={link.name}>
                   <motion.a
                     href={link.href}
-                    className="text-primary-foreground/70 transition-colors inline-flex items-center gap-2"
+                    className="text-slate-600 transition-colors inline-flex items-center gap-2 hover:text-accent"
                   >
                     <span className="w-1.5 h-1.5 bg-accent/50 rounded-full" />
                     {link.name}
@@ -107,7 +107,7 @@ const Footer = () => {
                 "General Trading",
               ].map((service) => (
                 <li key={service}>
-                  <div className="text-primary-foreground/70 inline-flex items-center gap-2">
+                  <div className="text-slate-600 inline-flex items-center gap-2">
                     <span className="w-1.5 h-1.5 bg-accent/50 rounded-full" />
                     {service}
                   </div>
@@ -136,7 +136,7 @@ const Footer = () => {
                   className="flex items-start gap-3 group"
                 >
                   <MapPin className="w-5 h-5 text-accent flex-shrink-0 mt-1" />
-                  <span className="text-primary-foreground/70 transition-colors">
+                  <span className="text-slate-600 transition-colors">
                     Al Quasis 1, Dubai<br />
                     P.O Box 77660, UAE
                   </span>
@@ -148,7 +148,7 @@ const Footer = () => {
                   className="flex items-center gap-3 group"
                 >
                   <Phone className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="text-primary-foreground/70 transition-colors">
+                  <span className="text-slate-600 transition-colors">
                     +971 54 781 0370
                   </span>
                 </a>
@@ -159,7 +159,7 @@ const Footer = () => {
                   className="flex items-center gap-3 group"
                 >
                   <Mail className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="text-primary-foreground/70 transition-colors">
+                  <span className="text-slate-600 transition-colors">
                     info@westfreightshipping.com
                   </span>
                 </a>
@@ -167,10 +167,10 @@ const Footer = () => {
             </ul>
 
             {/* Business Hours */}
-            <div className="mt-6 p-4 bg-primary-foreground/5 rounded-lg">
-              <p className="text-sm font-medium text-primary-foreground mb-2">Business Hours</p>
-              <p className="text-primary-foreground/70 text-sm">Mon - Fri: 9:00 - 18:00</p>
-              <p className="text-primary-foreground/50 text-xs mt-1">GST (Dubai Time)</p>
+            <div className="mt-6 p-4 bg-slate-200/60 rounded-lg">
+              <p className="text-sm font-medium text-slate-800 mb-2">Business Hours</p>
+              <p className="text-slate-600 text-sm">Mon - Fri: 9:00 - 18:00</p>
+              <p className="text-slate-500 text-xs mt-1">GST (Dubai Time)</p>
             </div>
           </motion.div>
         </div>
@@ -179,10 +179,10 @@ const Footer = () => {
   
 
       {/* Bottom bar */}
-      <div className="border-t border-primary-foreground/10">
+      <div className="border-t border-slate-200">
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-primary-foreground/60 text-sm">
+            <p className="text-slate-600 text-sm">
               © 2025 West Freight Shipping. All rights reserved. | Dubai, UAE
             </p>
             <motion.button
